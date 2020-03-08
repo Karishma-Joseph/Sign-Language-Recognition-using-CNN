@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<title>Sign Language</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-dark-grey w3-padding-32"> 
+  <h1><b>Translate Sign Language</b></h1>
+
+<style>
+  #data {
+    text-align: center;
+    font-size: 3.0em;
+    font-family: 'Times New Roman';
+  }
+</style>
+</header>
+
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Blog entries -->
+<div>
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+  	<div class="w3-container">
+      <a href="http://localhost:5000">BACK</a>
+      <div style="padding-top: 4em; padding-bottom: 2em;">
+      <form action="{{url_for('resetbackground')}}" method="POST"><center><input type="submit" name="reset" value="Reset Background" style="padding-top: 1em; padding-bottom: 1em;padding-left: 1em; padding-right: 1em; background-color: blue; color:white;"></center></form>
+      </div>
+    	<center><img src="{{ url_for('video_feed') }}"><img src="{{ url_for('thresh_feed') }}"></center>
+  	</div>
+    <div class="w3-container">
+    	<p id="data"></p>
+
+		<script>
+   			 var data = document.getElementById("data");
+
+    			setInterval(() => {
+       		 fetch("{{ url_for('word_feed') }}")
+       		 .then(response => {
+                	response.text().then(t => {data.innerHTML = t})
+            		});
+        		}, 100);  
+			</script>
+  	</div>
+ 
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div><br>
+
+<!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+</footer>
+
+</body>
+</html>
